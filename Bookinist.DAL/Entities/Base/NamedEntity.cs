@@ -1,0 +1,17 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Bookinist.DAL.Entities.Base
+{
+
+    public abstract class NamedEntity : Entity 
+    {
+        [Required]
+        public string Name { get; set; }
+    }
+
+}
