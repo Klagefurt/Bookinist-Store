@@ -12,7 +12,7 @@ namespace Bookinist_Store.ViewModels
 		/// <summary>
 		/// Title
 		/// </summary>
-		private string _title;
+		private string _title = "Main program window";
 
 		public string Title
 		{
