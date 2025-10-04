@@ -38,6 +38,7 @@ namespace Bookinist_Store
             }
 
             base.OnStartup(e);
+            Console.WriteLine("Application started from: " + AppDomain.CurrentDomain.BaseDirectory);
             await host.StartAsync();
         }
 

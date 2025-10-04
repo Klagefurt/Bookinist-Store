@@ -28,13 +28,13 @@ namespace Bookinist_Store.Data
             _logger.LogInformation("Db initializing...");
 
             _logger.LogInformation("Existing Db deleting...");
-            await _db.Database.EnsureDeletedAsync()/*.ConfigureAwait(false)*/;
+            await _db.Database.EnsureDeletedAsync().ConfigureAwait(false);
             _logger.LogInformation("Existing Db deleted in {0} ms", timer.ElapsedMilliseconds);
 
             // _db.Database.EnsureCreated();
 
             _logger.LogInformation("Db migrating...");
-            await _db.Database.MigrateAsync();
+            await _db.Database.MigrateAsync().ConfigureAwait(false);
             _logger.LogInformation("Db migrated in {0} ms", timer.ElapsedMilliseconds);
 
             if (await _db.Books.AnyAsync()) return;
@@ -145,7 +145,7 @@ namespace Bookinist_Store.Data
                     Book = rnd.NextItem(_Books),
                     Buyer = rnd.NextItem(_Buyers),
                     Seller = rnd.NextItem(_Sellers),
-                    Price = (decimal)rnd.NextDouble(rnd.NextDouble() * 4000 + 700)
+                    Price = (decimal)(rnd.NextDouble() * 4000 + 700)
                 });
 
             await _db.Deals.AddRangeAsync(deals);
