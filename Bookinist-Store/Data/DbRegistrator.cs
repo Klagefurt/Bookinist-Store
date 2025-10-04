@@ -8,7 +8,8 @@ namespace Bookinist_Store.Data
 {
     public static class DbRegistrator
     {
-        public static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration Configuration) => services
+        public static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration Configuration) => 
+            services
             .AddDbContext<BookinistDB>(opt =>
             {
                 var type = Configuration["Type"];
@@ -17,12 +18,6 @@ namespace Bookinist_Store.Data
                     case null: throw new InvalidOperationException("Db type is not defined!");
                     default: throw new InvalidOperationException($"Connection type {type} is not supported!");
 
-                    case "PostgreSQL":
-                        var psqlConnString = Configuration.GetConnectionString("PostgreSQL");
-                        if (string.IsNullOrEmpty(psqlConnString))
-                            throw new InvalidOperationException("PostgreSQL connection string is not defined.");
-                        opt.UseSqlServer(psqlConnString);
-                        break;
                     case "MSSQL":
                         var mssqlConnString = Configuration.GetConnectionString("MSSQL");
                         if (string.IsNullOrEmpty(mssqlConnString))
@@ -40,6 +35,7 @@ namespace Bookinist_Store.Data
                         break;
                 }
             })
+            .AddTransient<DbInitializer>()
         ;
     }
 }
